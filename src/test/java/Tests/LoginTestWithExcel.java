@@ -113,6 +113,19 @@ public class LoginTestWithExcel extends BaseTest {
         Assert.assertEquals(loginPage.getErrorMessage().getText(), "Your username is invalid!");
     }
 
+    @Test(priority = 60)
+    public void userCanLogout(){
+        String validUsername = excelReader.getStringData("Sheet1", 1,0);
+        String validPassword = excelReader.getStringData("Sheet1", 1,1);
+        homepagePage.clickOnPracticeButton();
+        practicePage.clickOnTestLoginPageButton();
+        loginPage.inputUsername(validUsername);
+        loginPage.inputPassword(validPassword);
+        loginPage.clickOnSubmitButton();
+        profilePage.clickOnLogOutButton();
+        Assert.assertTrue(loginPage.getSubmitButton().isDisplayed());
+    }
+
     @AfterMethod
     public void method(){
         driver.quit();
